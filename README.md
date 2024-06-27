@@ -1,16 +1,17 @@
-# mapbox_flutter_crash_reproduction
+# Mapbox Flutter crash reproduction
 
-A new Flutter project.
+This repository contains a sample app that reproduces a crash in the Mapbox SDK.
+The crash happens if Android decides to delete the Activity and the engine is managed in a way so that its lifecycle is not attached to the lifecycle of the hosting Activity.
 
-## Getting Started
+## Configuring the app
+The app needs an public Mapbox Token set up in the file `mapbox_access_token.xml`. 
+After that it runs fine.
 
-This project is a starting point for a Flutter application.
+## Reproducing the issue
+As the issue only occurs on Activity destruction the easiest way to reproduce this is by enabling the "don't keep activities" developer option on Android.  
+This way the Activity will be deleted every time the app goes to background.  
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Steps to reproduce:
+1. launch the app (world map is visible)
+2. send the app to background
+3. switch back to the app -> crash
